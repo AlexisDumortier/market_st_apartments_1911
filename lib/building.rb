@@ -33,4 +33,14 @@ class Building
     max_renter
   end
 
+  def annual_breakdown
+    breakdown = {}
+    @units.each do |unit|
+      if unit.renter != []
+        breakdown[unit.renter[0].name] = 12 * unit.monthly_rent
+      end
+    end
+    breakdown
+  end
+
 end

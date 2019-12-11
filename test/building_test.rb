@@ -61,4 +61,17 @@ end
     assert_equal @renter2, @building.renter_with_highest_rent
   end
 
+  def test_it_can_return_annual_breakdown
+    @building.add_unit(@unit1)
+    @building.add_unit(@unit2)
+    @building.add_unit(@unit3)
+    @unit2.add_renter(@renter1)
+    breakdown1 = {"Spencer" => 11988}
+    assert_equal breakdown1, @building.annual_breakdown
+    @renter2 = Renter.new("Jessie")
+    @unit1.add_renter(@renter2)
+    breakdown2 = {"Jessie" => 14400, "Spencer" => 11988}
+    assert_equal breakdown2, @building.annual_breakdown
+  end
+
 end
