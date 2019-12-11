@@ -4,15 +4,19 @@ require_relative '../lib/renter'
 require_relative '../lib/apartment'
 require_relative '../lib/building'
 
-
 class BuildingTest < Minitest::Test
 
   def setup 
     @unit1 = Apartment.new({number: "A1", monthly_rent: 1200, bathrooms: 1, bedrooms: 1})
-    @unit2 = Apartment.new({number: "B2", monthly_rent: 999, bathrooms: 2, bedrooms: 2})   
-    @renter1 = Renter.new("Jessie")
+    @unit2 = Apartment.new({number: "B2", monthly_rent: 999, bathrooms: 1, bedrooms: 2})   
+    @unit3 = Apartment.new({number: "C3", monthly_rent: 1150, bathrooms: 2, bedrooms: 2})
+    @unit4 = Apartment.new({number: "D4", monthly_rent: 1500, bathrooms: 3, bedrooms: 2})
+
+    @renter1 = Renter.new("Spencer")  
     @building = Building.new
-  end
+    
+    
+end
   
   def test_it_exists
     assert_instance_of Building, @building
@@ -40,6 +44,21 @@ class BuildingTest < Minitest::Test
     @building.add_unit(@unit1)
     @building.add_unit(@unit2)
     assert_equal 2199, @building.total_rent
+  end
+
+  def test_it_can_return_the_renter_with_highest_rent
+    assert_equal nil, @building.renter_with_highest_rent
+    @building.add_unit(@unit1)
+    @building.add_unit(@unit2)
+    @building.add_unit(@unit3)
+    @unit2.add_renter(@renter1)
+    @renter2 = Renter.new("Jessie")
+    @renter3 = Renter.new("Max") 
+    assert_equal @renter1, @building.renter_with_highest_rent
+    @unit1.add_renter(@renter2)
+    assert_equal @renter2, @building.renter_with_highest_rent
+    @unit3.add_renter(@renter3)
+    assert_equal @renter2, @building.renter_with_highest_rent
   end
 
 end
