@@ -15,5 +15,4 @@ class Apartment
     @renter << renter # if @renter.size == 0
   end
 
-
 end
