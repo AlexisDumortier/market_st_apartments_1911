@@ -62,6 +62,8 @@ end
   end
 
   def test_it_can_return_annual_breakdown
+    breakdown0 = {}
+    assert_equal breakdown0, @building.annual_breakdown
     @building.add_unit(@unit1)
     @building.add_unit(@unit2)
     @building.add_unit(@unit3)
